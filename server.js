@@ -15,7 +15,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //express.json() för att kunna köra CRUD
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL
+}));
 app.use(express.json())
 
 //schema för data. Specificera typ och om det är obligatoriskt att ha med
