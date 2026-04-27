@@ -14,10 +14,14 @@ const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//express.json() för att kunna köra CRUD
+//använd cors. Sätt origin till startsidan av webbapplikation eller localhost:5173 utifall att
+//för att det ska fungera för äldre webbläsare: optionsSuccessStatus: 200. 
+//Finns tydligen bugg som kanske inte hanterar 204 korrekt
 app.use(cors({
-    origin: process.env.CLIENT_URL || "https://localhost:5173"
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    optionsSuccessStatus: 200
 }));
+//express.json() för att kunna köra CRUD
 app.use(express.json())
 
 //schema för data. Specificera typ och om det är obligatoriskt att ha med
