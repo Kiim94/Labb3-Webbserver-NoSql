@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 //express.json() för att kunna köra CRUD
 app.use(cors({
-    origin: process.env.CLIENT_URL
+    origin: process.env.CLIENT_URL || "https://localhost:5173"
 }));
 app.use(express.json())
 
