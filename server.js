@@ -69,7 +69,7 @@ app.get("/api/works", async (req, res) => {
 //app.get ovan är bara för ALLA. Behöver en route som är för enstaka id
 app.get("/api/works/:id", async (req, res) => {
     try{
-        const result = await workSchema.findById(req.params.id);
+        const result = await Work.findById(req.params.id);
         if(!result){
             return res.status(404).json({ message: "Jobbet hittades inte"});
         }
