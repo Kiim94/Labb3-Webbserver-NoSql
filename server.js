@@ -54,6 +54,31 @@ app.get("/", (req, res) => {
     res.send("API server fungerar!");
 });
 
+app.get("/api/works", async (req, res) => {
+    try {
+        //"hitta" hela resultatet, sortera efter start_date. -1 betyder minsta först, alltså DESC
+        const result = await Work.find().sort({ start_date: -1 });
+        //visa hela resultatet = allt som finns
+        res.json(result);
+    } catch (err) {
+        //skicka server fel om något inte fungerar
+        res.status(500).json({ error: err.message });
+    }
+});
+
+//app.get ovan är bara för ALLA. Behöver en route som är för enstaka id
+app.get("/api/works/:id", async (req, res) => {
+    try{
+        const result = await workSchema.findById(req.params.id);
+        if(!result){
+            return res.status(404).json({ message: "Jobbet hittades inte"});
+        }
+        res.json(result);
+    }catch(err){
+        res.status(500).json({ message: "Serverfel: " + err.message})
+    }
+})
+
 //routes
 app.post("/api/works", async (req, res) => {
     try {
@@ -83,17 +108,7 @@ app.post("/api/works", async (req, res) => {
     }
 })
 
-app.get("/api/works", async (req, res) => {
-    try {
-        //"hitta" hela resultatet, sortera efter start_date. -1 betyder minsta först, alltså DESC
-        const result = await Work.find().sort({ start_date: -1 });
-        //visa hela resultatet = allt som finns
-        res.json(result);
-    } catch (err) {
-        //skicka server fel om något inte fungerar
-        res.status(500).json({ error: err.message });
-    }
-});
+
 
 app.put("/api/works/:id", async (req, res) => {
     try {
