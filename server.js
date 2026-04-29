@@ -108,8 +108,6 @@ app.post("/api/works", async (req, res) => {
     }
 })
 
-
-
 app.put("/api/works/:id", async (req, res) => {
     try {
         //samma variabler som i post
